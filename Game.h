@@ -9,17 +9,18 @@ public:
 
 private:
 	void processEvents();
-	void update();
+	void update(sf::Time deltaTime);
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 
 private:
 	sf::RenderWindow m_Window;
 	sf::CircleShape m_Player;
-	bool m_IsMovingUp;
-	bool m_IsMovingDown;
-	bool m_IsMovingLeft;
-	bool m_IsMovingRight;
+	bool m_IsMovingUp = false;
+	bool m_IsMovingDown = false;
+	bool m_IsMovingLeft = false;
+	bool m_IsMovingRight = false;
+	const sf::Time TimePerFrame = sf::seconds(1.0f / 60.0f);
 
 };
 

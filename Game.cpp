@@ -2,7 +2,7 @@
 
 Game::Game()
 	: m_Window(sf::VideoMode(640, 480), "SFML Application"),
-	  m_Player()
+	  m_Player() 
 {
 	m_Player.setRadius(40.0f);
 	m_Player.setPosition(100.0f, 100.0f);
@@ -11,11 +11,19 @@ Game::Game()
 
 void Game::run()
 {
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	while (m_Window.isOpen())
 	{
 		processEvents();
+		timeSinceLastUpdate += clock.restart();
+		while (timeSinceLastUpdate > TimePerFrame)
+		{
+			timeSinceLastUpdate -= TimePerFrame;
+			processEvents();
+			update(TimePerFrame);
+		}
 		render();
-		update();
 	}
 }
 
@@ -39,9 +47,19 @@ void Game::processEvents()
 	}
 }
 
-void Game::update()
+void Game::update(sf::Time deltaTime)
 {
-	//TODO implement
+	sf::Vector2f movement(0.0f, 0.0f);
+	if (m_IsMovingUp)
+		movement.y -= 1.0f;
+	if (m_IsMovingDown)
+		movement.y += 1.0f;
+	if (m_IsMovingLeft)
+		movement.x -= 1.0f;
+	if (m_IsMovingRight)
+		movement.x += 1.0f;
+
+	m_Player.move(movement * deltaTime.asSeconds());
 }
 
 void Game::render()
