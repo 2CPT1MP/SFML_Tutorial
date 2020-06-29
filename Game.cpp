@@ -2,11 +2,12 @@
 
 Game::Game()
 	: m_Window(sf::VideoMode(640, 480), "SFML Application"),
-	  m_Player() 
+	m_Texture(), m_Player()
 {
-	m_Player.setRadius(40.0f);
+	m_Texture.loadFromFile("textures/plane.png");
+	m_Player.setTexture(m_Texture);
 	m_Player.setPosition(100.0f, 100.0f);
-	m_Player.setFillColor(sf::Color::Cyan);
+	m_Player.setScale({ 0.15f, 0.15f });
 }
 
 void Game::run()
@@ -51,13 +52,13 @@ void Game::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.0f, 0.0f);
 	if (m_IsMovingUp)
-		movement.y -= 1.0f;
+		movement.y -= PlayerSpeed;
 	if (m_IsMovingDown)
-		movement.y += 1.0f;
+		movement.y += PlayerSpeed;
 	if (m_IsMovingLeft)
-		movement.x -= 1.0f;
+		movement.x -= PlayerSpeed;
 	if (m_IsMovingRight)
-		movement.x += 1.0f;
+		movement.x += PlayerSpeed;
 
 	m_Player.move(movement * deltaTime.asSeconds());
 }
@@ -72,12 +73,12 @@ void Game::render()
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
 	if (key == sf::Keyboard::W)
-		m_IsMovingUp = true;
+		m_IsMovingUp = isPressed;
 	else if (key == sf::Keyboard::S)
-		m_IsMovingDown = true;
+		m_IsMovingDown = isPressed;
 	else if (key == sf::Keyboard::A)
-		m_IsMovingLeft = true;
+		m_IsMovingLeft = isPressed;
 	else if (key == sf::Keyboard::D)
-		m_IsMovingRight = true;
+		m_IsMovingRight = isPressed;
 		
 }
