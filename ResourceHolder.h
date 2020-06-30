@@ -7,7 +7,7 @@ namespace Textures
 {
 	enum ID
 	{
-		Landscape, Airplane, Missile
+		Eagle, Raptor
 	};
 }
 
@@ -23,4 +23,6 @@ public:
 	Resource& get(Identifier id);
 	const Resource& get(Identifier id) const;
 };
+
+typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
 

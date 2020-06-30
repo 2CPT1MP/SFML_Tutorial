@@ -1,4 +1,4 @@
-#include "TextureHolder.h"
+#include "ResourceHolder.h"
 #include <assert.h>
 
 template <typename Resource, typename Identifier>
